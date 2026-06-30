@@ -1,0 +1,28 @@
+.page-top {
+  padding-top: 60px;
+}
+
+.grid {
+  margin-top: 48px;
+  display: grid;
+  gap: 24px;
+}
+
+.grid--products,
+.grid--research {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 980px) {
+  .grid--products,
+  .grid--research {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .grid--products,
+  .grid--research {
+    grid-template-columns: 1fr;
+  }
+}

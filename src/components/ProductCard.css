@@ -1,0 +1,77 @@
+.pcard {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.pcard__cover-wrap {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+}
+
+.pcard__cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.pcard:hover .pcard__cover {
+  transform: scale(1.06);
+}
+
+.pcard__type {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(10, 11, 20, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(8px);
+}
+
+.pcard__body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pcard__title {
+  font-size: 20px;
+}
+
+.pcard__tagline {
+  font-size: 14.5px;
+}
+
+.pcard__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  list-style: none;
+  margin-top: 2px;
+}
+
+.pcard__tags li {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(139, 123, 255, 0.1);
+  border: 1px solid rgba(139, 123, 255, 0.25);
+  color: var(--violet);
+}
+
+.pcard__actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}

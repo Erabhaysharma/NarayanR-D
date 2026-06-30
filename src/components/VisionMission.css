@@ -1,0 +1,41 @@
+.vm-grid {
+  margin-top: 44px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.vm-card {
+  padding: 36px;
+  position: relative;
+  overflow: hidden;
+}
+
+.vm-card__tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--violet);
+  background: rgba(139, 123, 255, 0.12);
+  border: 1px solid rgba(139, 123, 255, 0.3);
+  padding: 4px 10px;
+  border-radius: 999px;
+  display: inline-block;
+  margin-bottom: 18px;
+}
+
+.vm-card__title {
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+
+.vm-card__body {
+  font-size: 15px;
+}
+
+@media (max-width: 760px) {
+  .vm-grid {
+    grid-template-columns: 1fr;
+  }
+}

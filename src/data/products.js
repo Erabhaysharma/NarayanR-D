@@ -19,7 +19,7 @@ export const products = [
     tagline: "AI-powered personal diary with RAG memory chat.",
     cover: "/Product/medha_cover.png",
     type: "app",
-    link: "https://drive.google.com/file/d/1LtGXWAblml-p-EFF8132kZ8_5G-VWbMt/view?usp=drive_link",
+    link: "https://drive.google.com/file/d/1aTse5X50MG23YQQU11_9Pm6kRuIMpYJK/view?usp=drive_link",
     tags: ["React Native", "FastAPI", "RAG", "Supabase"],
     doc: `## What it is
 Medha is a personal diary app that remembers what you write and lets you talk to your own past entries.

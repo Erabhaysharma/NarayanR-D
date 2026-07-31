@@ -46,7 +46,7 @@
 
 .hero__visual-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(10, 2fr);
   gap: 18px;
   position: relative;
 }
@@ -64,8 +64,8 @@
 
 .hero__dot-glow {
   position: absolute;
-  width: 140px;
-  height: 140px;
+  width: 200px;
+  height: 200px;
   margin-left: -70px;
   margin-top: -70px;
   border-radius: 50%;

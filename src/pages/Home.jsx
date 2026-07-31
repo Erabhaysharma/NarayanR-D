@@ -2,12 +2,14 @@ import React from "react";
 import Hero from "../components/Hero.jsx";
 import VisionMission from "../components/VisionMission.jsx";
 import Contact from "../components/Contact.jsx";
+import Footer from "../components/Ourwork.jsx";
 
 export default function Home() {
   return (
     <main>
       <Hero />
       <VisionMission />
+      <Footer/>
       <Contact />
     </main>
   );

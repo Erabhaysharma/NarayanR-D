@@ -87,7 +87,7 @@ export default function Hero() {
             onMouseMove={handleDotGridMouseMove}
             onMouseLeave={handleDotGridMouseLeave}
           >
-            {Array.from({ length: 9 }).map((_, i) => {
+            {Array.from({ length: 100 }).map((_, i) => {
               const dist = dotDistances[i];
               const proximity = dist == null ? 0 : Math.max(0, 1 - dist / 120);
               return (

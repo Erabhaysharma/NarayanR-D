@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer.jsx";
+import WhatsAppFloat from "./components/WhatsAppFloat.jsx";
 import Home from "./pages/Home.jsx";
 import Products from "./pages/Products.jsx";
 import Research from "./pages/Research.jsx";
@@ -9,7 +10,7 @@ import Research from "./pages/Research.jsx";
 function ScrollToTop() {
   const { pathname } = useLocation();
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
+    window.scrollTo({ top: 0, behavior: "instant" });
   }, [pathname]);
   return null;
 }
@@ -27,6 +28,7 @@ export default function App() {
         <Route path="/research" element={<Research />} />
       </Routes>
       <Footer />
+      <WhatsAppFloat />
     </>
   );
 }

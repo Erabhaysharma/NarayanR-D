@@ -104,7 +104,7 @@ export default function Services() {
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.6 }}
         >
-          <span className="eyebrow">Services</span>
+          <span className="eyebrow">Our Process </span>
           <h2 className="section-heading">From Raw Idea to Investor-Ready in 14 Days</h2>
           <p className="section-sub">
             We validate your idea before you spend lakhs on development. Clear GO/NO-GO
@@ -120,11 +120,11 @@ export default function Services() {
               Validate My Idea
             </a>
             
-             <a href="https://wa.me/918571816976?text=Hi%2C%20I%27d%20like%20to%20book%20a%20Discovery%20Call"
-              target="_blank"
-              rel="noreferrer"
-              className="btn btn-primary"
-            >
+             <a
+            href="#contact"
+            className="nav__link"
+            onClick={(e) => handleSectionLink(e, "contact")}
+          >
               Book Discovery Call
             </a>
           </div>

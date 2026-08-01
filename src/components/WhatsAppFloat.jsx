@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./WhatsAppFloat.css";
 
-const WA_NUMBER = "8571816976"; // replace with your actual number
+const WA_NUMBER = "918571816976"; // replace with your actual number
 const WA_MESSAGE = "Hi, I'd like to know more about Narayan R&D services.";
 
 export default function WhatsAppFloat() {

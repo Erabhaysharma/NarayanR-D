@@ -3,12 +3,14 @@ import Hero from "../components/Hero.jsx";
 import VisionMission from "../components/VisionMission.jsx";
 import Services from "../components/Services.jsx";
 import Contact from "../components/Contact.jsx";
+import WhyUs from "../components/WhyUs.jsx";
 
 export default function Home() {
   return (
     <main>
       <Hero />
       <VisionMission />
+      <WhyUs/>
       <Services />
       <Contact />
     </main>

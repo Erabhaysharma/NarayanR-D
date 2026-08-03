@@ -1,0 +1,335 @@
+=/* ─── Section ─────────────────────────────────────── */
+.whyus {
+  padding: 110px 0 120px;
+}
+
+/* ─── Header ──────────────────────────────────────── */
+.whyus__header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 70px;
+}
+
+.whyus__heading {
+  font-size: 42px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 10px 0 16px;
+  color: var(--text-primary);
+}
+
+.whyus__sub {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text-muted);
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+/* ─── Two-column body ─────────────────────────────── */
+.whyus__body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+/* ─── LEFT column ─────────────────────────────────── */
+.whyus__left {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+/* Stage: relatively positioned so absolute cards stack inside */
+.whyus__cards-stage {
+  position: relative;
+  width: 100%;
+  height: 420px;
+}
+
+/* ─── Cards ───────────────────────────────────────── */
+.wcard {
+  position: absolute;
+  perspective: 800px;
+  cursor: pointer;
+}
+
+.wcard__inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.wcard:hover .wcard__inner {
+  transform: rotateY(180deg);
+}
+
+/* ─── Shared face ─────────────────────────────────── */
+.wcard__face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 10px;
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--glass-fill);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow:
+    0 4px 20px rgba(0,0,0,0.28),
+    inset 0 1px 0 rgba(255,255,255,0.07);
+}
+
+/* accent top border using ::before */
+.wcard__face::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 10px 10px 0 0;
+  opacity: 0.7;
+}
+
+/* ─── Front ───────────────────────────────────────── */
+.wcard__front {
+  justify-content: flex-start;
+}
+
+.wcard__icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--glass-border);
+  background: rgba(255,255,255,0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  flex-shrink: 0;
+  box-shadow: 0 0 14px color-mix(in srgb, var(--accent) 25%, transparent);
+}
+
+.wcard__label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.45;
+  white-space: pre-line;
+  margin: 0;
+}
+
+/* ─── Back ────────────────────────────────────────── */
+.wcard__back {
+  transform: rotateY(180deg);
+  justify-content: center;
+  gap: 10px;
+}
+
+.wcard__back-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.wcard__back-body {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* ─────────────────────────────────────────────────────
+   Card positions — matching reference layout exactly
+   Stage height: 420px, width: ~100% of left col
+───────────────────────────────────────────────────── */
+
+/* Card 1: top-left, shorter, narrower */
+.wcard--1 {
+  top: 0;
+  left: 0;
+  width: 48%;
+  height: 130px;
+}
+
+/* Card 2: top-right, taller — spans two rows visually */
+.wcard--2 {
+  top: 10px;
+  right: 0;
+  width: 46%;
+  height: 220px;
+}
+
+/* Card 3: middle — bridges cards 1 and 2, offset down */
+.wcard--3 {
+  top: 140px;
+  left: 14%;
+  width: 56%;
+  height: 140px;
+}
+
+/* Card 4: bottom-left, tall */
+.wcard--4 {
+  top: 250px;
+  left: 0;
+  width: 46%;
+  height: 160px;
+}
+
+/* Card 5: bottom-right */
+.wcard--5 {
+  top: 245px;
+  right: 2%;
+  width: 44%;
+  height: 160px;
+}
+
+/* ─── Action buttons ──────────────────────────────── */
+.whyus__actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.whyus__btn-secondary {
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  padding: 10px 4px;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  border-radius: 0;
+}
+
+.whyus__btn-secondary:hover {
+  color: var(--cyan);
+  background: transparent;
+  border: none;
+  transform: none;
+}
+
+/* ─── RIGHT column — blob + image ────────────────── */
+.whyus__right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.whyus__img-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+}
+
+/* Organic blob behind image */
+.whyus__img-wrap::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: -8%;
+  left: -12%;
+  width: 115%;
+  height: 115%;
+  background: rgba(139, 123, 255, 0.09);
+  border-radius: 62% 38% 46% 54% / 60% 44% 56% 40%;
+  filter: blur(2px);
+  animation: blob-shift 12s ease-in-out infinite alternate;
+}
+
+/* Second glow layer */
+.whyus__img-wrap::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: 5%;
+  left: -6%;
+  width: 105%;
+  height: 100%;
+  background: rgba(92, 225, 230, 0.06);
+  border-radius: 45% 55% 60% 40% / 50% 40% 60% 50%;
+  filter: blur(1px);
+  animation: blob-shift 16s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes blob-shift {
+  0%   { border-radius: 62% 38% 46% 54% / 60% 44% 56% 40%; }
+  33%  { border-radius: 48% 52% 60% 40% / 44% 60% 40% 56%; }
+  66%  { border-radius: 55% 45% 38% 62% / 52% 38% 62% 48%; }
+  100% { border-radius: 40% 60% 52% 48% / 58% 46% 54% 42%; }
+}
+
+.whyus__img {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+/* ─── Responsive ──────────────────────────────────── */
+@media (max-width: 960px) {
+  .whyus__body {
+    grid-template-columns: 1fr;
+    gap: 56px;
+  }
+
+  .whyus__right {
+    order: -1;
+  }
+
+  .whyus__img {
+    height: 300px;
+  }
+
+  .whyus__cards-stage {
+    height: 480px;
+  }
+
+  .wcard--3 { left: 8%; width: 64%; }
+}
+
+@media (max-width: 540px) {
+  .whyus__cards-stage {
+    position: static;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .wcard {
+    position: static;
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  .wcard__face {
+    position: static;
+    height: auto;
+  }
+
+  .wcard__inner {
+    height: auto;
+    min-height: 120px;
+  }
+
+  .wcard__back {
+    display: none;
+  }
+}

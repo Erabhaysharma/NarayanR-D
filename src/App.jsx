@@ -6,6 +6,7 @@ import WhatsAppFloat from "./components/WhatsAppFloat.jsx";
 import Home from "./pages/Home.jsx";
 import Products from "./pages/Products.jsx";
 import Research from "./pages/Research.jsx";
+import ServicesPage from "./pages/ServicesPage.jsx";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -24,6 +25,7 @@ export default function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/services" element={<ServicesPage />} />
         <Route path="/products" element={<Products />} />
         <Route path="/research" element={<Research />} />
       </Routes>

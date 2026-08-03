@@ -6,8 +6,10 @@ import "./Navbar.css";
 
 const links = [
   { to: "/", label: "Home" },
+  { to: "/services", label: "Services" },
   { to: "/products", label: "Products" },
   { to: "/research", label: "Research" },
+  
 ];
 
 export default function Navbar() {

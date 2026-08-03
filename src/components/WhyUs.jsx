@@ -117,14 +117,14 @@ export default function WhyUs() {
               transition={{ duration: 0.5, delay: 0.5 }}
             >
               <a
-                href="https://wa.me/919999999999?text=Hi%2C%20I%27d%20like%20to%20validate%20my%20idea"
+                href="https://wa.me/918571816976?text=Hi%2C%20I%27d%20like%20to%20validate%20my%20idea"
                 target="_blank" rel="noreferrer"
                 className="btn btn-ghost whyus__btn-secondary"
               >
                 Validate My Idea
               </a>
               <a
-                href="https://wa.me/919999999999?text=Hi%2C%20I%27d%20like%20to%20talk%20to%20NR%26D"
+                href="https://wa.me/918571816976?text=Hi%2C%20I%27d%20like%20to%20talk%20to%20NR%26D"
                 target="_blank" rel="noreferrer"
                 className="btn btn-primary"
               >

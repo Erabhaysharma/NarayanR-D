@@ -19,7 +19,7 @@ const stages = [
     quote: "We listen. You share your idea. We map the path forward.",
     sample: null,
     cta: "Book Discovery Call",
-    ctaHref: "https://wa.me/919999999999?text=Hi%2C%20I%27d%20like%20to%20book%20a%20Discovery%20Call",
+    ctaHref: "https://wa.me/918571816976?text=Hi%2C%20I%27d%20like%20to%20book%20a%20Discovery%20Call",
     color: "var(--cyan)",
   },
   {

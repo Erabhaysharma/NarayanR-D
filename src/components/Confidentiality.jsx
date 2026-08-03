@@ -45,7 +45,7 @@ export default function Confidentiality() {
       <div className="conf-banner">
 
         <img
-          src="/public/confidentiality.jpg"
+          src="/confidentiality.jpg"
           alt="Confidentiality"
         />
 
@@ -115,7 +115,7 @@ export default function Confidentiality() {
             Have questions about protecting your innovation?
 
             <a
-              href="https://wa.me/919999999999"
+              href="https://wa.me/918571816976"
               target="_blank"
               rel="noreferrer"
             >

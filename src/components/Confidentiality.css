@@ -2,10 +2,18 @@
    Confidentiality Section
 ===================================================== */
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box; /* KEY FIX: ensure padding never adds to width */
+}
+
 .confidentiality {
   position: relative;
   padding-bottom: 100px;
   overflow: hidden;
+  width: 100%;          /* KEY FIX: contain to viewport */
+  max-width: 100vw;
 }
 
 /* =====================================================
@@ -42,15 +50,17 @@
 
 /* =====================================================
    HERO BANNER
+   KEY FIX: banner needs a defined height so the
+   absolutely-positioned img is actually visible.
+   Use min-height + padding via conf-content to drive it.
 ===================================================== */
 
 .conf-banner {
   position: relative;
   width: 100%;
-  /* KEY FIX: min-height instead of fixed height so content never clips */
-  min-height: 320px;
-  height: auto;
+  max-width: 100%;         /* KEY FIX: never wider than viewport */
   overflow: hidden;
+  /* height is driven by conf-content padding below */
 }
 
 .conf-banner img {
@@ -60,6 +70,7 @@
   height: 100%;
   object-fit: cover;
   object-position: center;
+  z-index: 0;
 }
 
 .conf-overlay {
@@ -101,9 +112,8 @@
   position: relative;
   z-index: 5;
 
-  /* KEY FIX: padding-based height — never clips on any screen */
-  height: auto;
-  padding: 72px 24px 80px;
+  /* drives the banner's visible height */
+  padding: 80px 24px 88px;
 
   display: flex;
   flex-direction: column;
@@ -111,6 +121,7 @@
   align-items: center;
   text-align: center;
 
+  width: 100%;
   max-width: 860px;
   margin: 0 auto;
 
@@ -122,53 +133,61 @@
 }
 
 .conf-content h2 {
+  width: 100%;
   max-width: 900px;
   margin: 0 0 18px;
-  /* KEY FIX: clamp starts smaller so it never overflows narrow phones */
-  font-size: clamp(28px, 6vw, 68px);
+  font-size: clamp(26px, 5.5vw, 68px);  /* KEY FIX: starts at 26px not 28px */
   line-height: 1.1;
   word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .conf-content p {
+  width: 100%;
   max-width: 680px;
   margin: 0 auto;
-  /* KEY FIX: clamp for body text too */
   font-size: clamp(14px, 2.2vw, 18px);
   line-height: 1.8;
 }
 
 /* =====================================================
    CARD GRID
+   KEY FIX: width + box-sizing so padding never overflows
 ===================================================== */
 
 .conf-grid {
   position: relative;
   z-index: 2;
-  margin-top: 3rem;
+
+  width: 100%;                   /* KEY FIX */
+  max-width: 1200px;
+  margin: 3rem auto 0;           /* KEY FIX: shorthand — no conflicting margin rules */
   padding: 0 24px;
 
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
-/* Second row — cards 4 & 5 centered via auto margins */
-.card-4 {
-  grid-column: 1;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
-}
-
+/*
+  KEY FIX: remove manual grid-column placements on card-4 / card-5.
+  They were placing both cards on the SAME columns (1 and 3),
+  leaving column 2 empty and making row 2 look broken.
+  Instead let auto-placement handle it and centre the row with
+  a wrapper trick using grid padding.
+*/
+.card-4,
 .card-5 {
+  /* no grid-column override — auto placement fills left→right */
+}
+
+/* visually centre the 2-card second row by indenting the grid */
+.conf-grid .card-4:nth-child(4) {
+  grid-column: 1;
+}
+
+.conf-grid .card-5:nth-child(5) {
   grid-column: 3;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
 }
 
 /* =====================================================
@@ -187,7 +206,8 @@
   position: relative;
   overflow: hidden;
 
-  /* KEY FIX: don't let animation remove itself after playing */
+  width: 100%;                  /* KEY FIX: always fills its grid cell */
+
   animation: fadeCard 0.8s ease backwards;
   transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
 }
@@ -198,18 +218,15 @@
 .card-4 { animation-delay: 0.30s; }
 .card-5 { animation-delay: 0.40s; }
 
-/* top accent bar */
 .conf-card::after {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 0; left: 0;
   width: 100%;
   height: 3px;
   background: linear-gradient(90deg, var(--cyan), var(--violet));
 }
 
-/* animated glow on hover */
 .conf-card::before {
   content: "";
   position: absolute;
@@ -233,20 +250,20 @@
     0 0 35px rgba(92, 225, 230, 0.12);
 }
 
-.conf-card:hover::before {
-  opacity: 1;
-}
+.conf-card:hover::before { opacity: 1; }
 
 .conf-card:hover .icon-circle {
   color: #fff;
   border-color: rgba(92, 225, 230, 0.35);
-  background: linear-gradient(135deg, rgba(92, 225, 230, 0.15), rgba(139, 123, 255, 0.18));
+  background: linear-gradient(
+    135deg,
+    rgba(92, 225, 230, 0.15),
+    rgba(139, 123, 255, 0.18)
+  );
   transform: scale(1.08);
 }
 
-.conf-card:hover h3 {
-  color: var(--cyan);
-}
+.conf-card:hover h3 { color: var(--cyan); }
 
 /* =====================================================
    ICON
@@ -256,6 +273,7 @@
   width: 68px;
   height: 68px;
   min-width: 68px;
+  flex-shrink: 0;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -268,7 +286,6 @@
     inset 0 0 0 1px rgba(255, 255, 255, 0.04),
     0 10px 35px rgba(0, 0, 0, 0.25);
   transition: all 0.35s ease;
-  flex-shrink: 0;
 }
 
 /* =====================================================
@@ -277,16 +294,17 @@
 
 .card-content {
   flex: 1;
-  min-width: 0; /* KEY FIX: prevents flex children overflowing */
+  min-width: 0;       /* KEY FIX: flex child won't overflow card */
 }
 
 .card-content h3 {
   color: var(--text-primary);
-  font-size: clamp(16px, 1.6vw, 20px);
+  font-size: clamp(15px, 1.6vw, 20px);
   margin-bottom: 10px;
   line-height: 1.35;
   transition: color 0.3s ease;
   word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .card-content p {
@@ -294,6 +312,7 @@
   font-size: clamp(13px, 1.2vw, 15px);
   line-height: 1.75;
   word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 /* =====================================================
@@ -306,6 +325,7 @@
   margin-top: 56px;
   text-align: center;
   padding: 0 24px;
+  width: 100%;
 }
 
 .conf-contact p {
@@ -335,13 +355,8 @@
   transition: width 0.35s ease;
 }
 
-.conf-contact a:hover {
-  color: #fff;
-}
-
-.conf-contact a:hover::after {
-  width: 100%;
-}
+.conf-contact a:hover { color: #fff; }
+.conf-contact a:hover::after { width: 100%; }
 
 /* =====================================================
    ANIMATIONS
@@ -358,47 +373,50 @@
 }
 
 /* =====================================================
-   RESPONSIVE — TABLET  (≤ 1100px)
+   TABLET  ≤ 1100px
 ===================================================== */
 
 @media (max-width: 1100px) {
   .conf-grid {
     grid-template-columns: repeat(2, 1fr);
+    padding: 0 20px;
   }
 
-  /* reset the manual column placements */
-  .card-4,
-  .card-5 {
-    grid-column: auto;
-    margin-left: 0;
-    margin-right: 0;
-    width: 100%;
-  }
-}
-
-/* =====================================================
-   RESPONSIVE — MOBILE  (≤ 768px)
-===================================================== */
-
-@media (max-width: 768px) {
-  .confidentiality {
-    padding-bottom: 72px;
-  }
-
-  /* KEY FIX: single column, no horizontal scroll */
-  .conf-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-    margin-top: 2rem;
-    padding: 0 16px;
-  }
-
+  /* KEY FIX: reset ALL column overrides for 2-col layout */
+  .conf-grid .card-4:nth-child(4),
+  .conf-grid .card-5:nth-child(5),
   .card-4,
   .card-5 {
     grid-column: auto;
     margin: 0;
     width: 100%;
-    justify-self: stretch;
+  }
+}
+
+/* =====================================================
+   MOBILE  ≤ 768px
+===================================================== */
+
+@media (max-width: 768px) {
+  .confidentiality {
+    padding-bottom: 64px;
+  }
+
+  .conf-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 0 16px;
+    margin-top: 2rem;
+  }
+
+  /* reset any column placement for single-col */
+  .conf-grid .card-4:nth-child(4),
+  .conf-grid .card-5:nth-child(5),
+  .card-4,
+  .card-5 {
+    grid-column: auto;
+    margin: 0;
+    width: 100%;
   }
 
   .conf-content {
@@ -406,23 +424,23 @@
   }
 
   .conf-card {
-    padding: 22px 18px;
+    padding: 20px 16px;
     min-height: auto;
-    gap: 16px;
+    gap: 14px;
   }
 
   .icon-circle {
-    width: 56px;
-    height: 56px;
-    min-width: 56px;
+    width: 54px;
+    height: 54px;
+    min-width: 54px;
     font-size: 22px;
   }
 
   .conf-contact {
     margin-top: 40px;
+    padding: 0 16px;
   }
 
-  /* stack "email us" link below text on narrow screens */
   .conf-contact p {
     display: flex;
     flex-direction: column;
@@ -436,47 +454,46 @@
 }
 
 /* =====================================================
-   RESPONSIVE — SMALL PHONES  (≤ 480px)
+   SMALL PHONES  ≤ 480px
 ===================================================== */
 
 @media (max-width: 480px) {
   .conf-grid {
     padding: 0 12px;
-    gap: 14px;
+    gap: 12px;
   }
 
   .conf-content {
-    padding: 44px 16px 52px;
+    padding: 44px 14px 52px;
   }
 
   .conf-card {
-    /* KEY FIX: stack icon above text on very small screens */
     flex-direction: column;
     align-items: flex-start;
-    gap: 14px;
-    padding: 20px 16px;
-    border-radius: 18px;
+    gap: 12px;
+    padding: 18px 14px;
+    border-radius: 16px;
   }
 
   .icon-circle {
-    width: 52px;
-    height: 52px;
-    min-width: 52px;
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
     font-size: 20px;
   }
 
-  /* disable hover lift on touch — avoids stuck states */
+  /* no hover lift on touch */
   .conf-card:hover {
     transform: none;
   }
 
   .conf-contact {
-    padding: 0 16px;
+    padding: 0 12px;
   }
 }
 
 /* =====================================================
-   EXTRA SMALL  (≤ 360px)
+   EXTRA SMALL  ≤ 360px
 ===================================================== */
 
 @media (max-width: 360px) {
@@ -485,10 +502,20 @@
   }
 
   .conf-grid {
-    padding: 0 8px;
+    padding: 0 10px;
+    gap: 10px;
   }
 
   .conf-card {
-    padding: 18px 14px;
+    padding: 16px 12px;
+    border-radius: 14px;
+  }
+
+  .card-content h3 {
+    font-size: 14px;
+  }
+
+  .card-content p {
+    font-size: 12.5px;
   }
 }

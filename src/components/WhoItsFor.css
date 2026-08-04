@@ -1,0 +1,213 @@
+/* ─── Section wrapper ─────────────────────────────── */
+.whofor {
+  width: 100%;
+  overflow: hidden;
+}
+
+/* ─────────────────────────────────────────────────────
+   HERO BANNER
+───────────────────────────────────────────────────── */
+.whofor__hero {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* background image — swap /who/hero-banner.jpg for your image */
+.whofor__hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url("/who/hero-banner.jpg");
+  background-size: cover;
+  background-position: center 30%;
+  transform: scale(1.04);
+  transition: transform 14s ease;
+  animation: hero-slow-zoom 14s ease-in-out infinite alternate;
+}
+
+@keyframes hero-slow-zoom {
+  from { transform: scale(1.04); }
+  to   { transform: scale(1.08); }
+}
+
+/* dark overlay */
+.whofor__hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(8, 9, 18, 0.55) 0%,
+    rgba(8, 9, 18, 0.72) 100%
+  );
+}
+
+.whofor__hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 24px;
+  max-width: 760px;
+}
+
+.whofor__hero-heading {
+  font-family: var(--font-display);
+  font-size: clamp(30px, 5vw, 52px);
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 14px;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  text-shadow: 0 2px 24px rgba(0,0,0,0.5);
+}
+
+.whofor__hero-sub {
+  font-size: clamp(13px, 1.6vw, 16px);
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.82);
+  max-width: 620px;
+  margin: 0 auto;
+  font-weight: 500;
+  text-shadow: 0 1px 12px rgba(0,0,0,0.5);
+}
+
+/* ─────────────────────────────────────────────────────
+   3 × 2 GRID
+───────────────────────────────────────────────────── */
+.whofor__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 260px);
+  gap: 3px;
+  background: var(--ink);
+}
+
+/* ─── Individual client card ──────────────────────── */
+.wclient {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* photo */
+.wclient__bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.wclient:hover .wclient__bg {
+  transform: scale(1.07);
+}
+
+/* permanent bottom gradient scrim */
+.wclient__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(6, 7, 14, 0.88) 0%,
+    rgba(6, 7, 14, 0.3) 40%,
+    transparent 70%
+  );
+  transition: background 0.4s ease;
+}
+
+.wclient:hover .wclient__scrim {
+  background: linear-gradient(
+    to top,
+    rgba(6, 7, 14, 0.92) 0%,
+    rgba(6, 7, 14, 0.55) 55%,
+    rgba(6, 7, 14, 0.18) 100%
+  );
+}
+
+/* hover detail text — slides up */
+.wclient__hover-detail {
+  position: absolute;
+  bottom: 58px;
+  left: 0;
+  right: 0;
+  padding: 0 18px;
+  z-index: 3;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.wclient:hover .wclient__hover-detail {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.wclient__hover-detail p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.78);
+  margin: 0;
+}
+
+/* label — always visible at bottom */
+.wclient__label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 4;
+  padding: 14px 18px;
+}
+
+.wclient__label span {
+  font-family: var(--font-display);
+  font-size: clamp(13px, 1.3vw, 16px);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.3;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.7);
+
+  /* cyan underline accent on hover */
+  background-image: linear-gradient(var(--cyan), var(--cyan));
+  background-size: 0% 2px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  padding-bottom: 2px;
+  transition: background-size 0.35s ease;
+}
+
+.wclient:hover .wclient__label span {
+  background-size: 100% 2px;
+}
+
+/* ─── Responsive ──────────────────────────────────── */
+@media (max-width: 900px) {
+  .whofor__grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 220px);
+  }
+
+  .whofor__hero {
+    height: 240px;
+  }
+}
+
+@media (max-width: 560px) {
+  .whofor__grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, 200px);
+  }
+
+  .whofor__hero {
+    height: 200px;
+  }
+
+  .wclient__hover-detail {
+    opacity: 1;
+    transform: none;
+    bottom: 52px;
+  }
+}

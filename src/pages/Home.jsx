@@ -5,6 +5,7 @@ import Services from "../components/Services.jsx";
 import Contact from "../components/Contact.jsx";
 import WhyUs from "../components/WhyUs.jsx";
 import OurServices from "../components/OurServices.jsx";
+import WhoItsFor from "../components/WhoItsFor.jsx";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       <VisionMission />
       <OurServices/>
       <Services />
+      <WhoItsFor/>
       <WhyUs/>
       <Contact />
     </main>

@@ -4,7 +4,40 @@
 
 .confidentiality {
   position: relative;
-  padding-bottom: 120px;
+  padding-bottom: 100px;
+  overflow: hidden;
+}
+
+/* =====================================================
+   FLOATING LIGHTS
+===================================================== */
+
+.confidentiality::before {
+  content: "";
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  left: -180px;
+  top: 420px;
+  background: radial-gradient(circle, rgba(92, 225, 230, 0.10), transparent 70%);
+  filter: blur(50px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.confidentiality::after {
+  content: "";
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  right: -180px;
+  bottom: 120px;
+  background: radial-gradient(circle, rgba(139, 123, 255, 0.10), transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* =====================================================
@@ -14,7 +47,9 @@
 .conf-banner {
   position: relative;
   width: 100%;
-  height: 440px;
+  /* KEY FIX: min-height instead of fixed height so content never clips */
+  min-height: 320px;
+  height: auto;
   overflow: hidden;
 }
 
@@ -24,15 +59,16 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
 }
 
 .conf-overlay {
   position: absolute;
   inset: 0;
   background: rgba(8, 12, 22, 0.82);
+  z-index: 1;
 }
 
-/* small blue glow */
 .conf-overlay::before {
   content: "";
   position: absolute;
@@ -41,17 +77,9 @@
   border-radius: 50%;
   left: -120px;
   top: -120px;
-
-  background: radial-gradient(
-    circle,
-    rgba(92, 225, 230, 0.18),
-    transparent 70%
-  );
-
+  background: radial-gradient(circle, rgba(92, 225, 230, 0.18), transparent 70%);
   filter: blur(20px);
 }
-
-/* purple glow */
 
 .conf-overlay::after {
   content: "";
@@ -59,60 +87,54 @@
   width: 550px;
   height: 550px;
   border-radius: 50%;
-
   right: -180px;
   bottom: -180px;
-
-  background: radial-gradient(
-    circle,
-    rgba(139, 123, 255, 0.20),
-    transparent 70%
-  );
-
+  background: radial-gradient(circle, rgba(139, 123, 255, 0.20), transparent 70%);
   filter: blur(20px);
 }
 
 /* =====================================================
-   CONTENT
+   CONTENT inside banner
 ===================================================== */
 
 .conf-content {
   position: relative;
   z-index: 5;
 
-  height: 380px;
+  /* KEY FIX: padding-based height — never clips on any screen */
+  height: auto;
+  padding: 72px 24px 80px;
 
   display: flex;
   flex-direction: column;
-
   justify-content: center;
   align-items: center;
-
   text-align: center;
 
   max-width: 860px;
+  margin: 0 auto;
 
-  margin: auto;
+  animation: fadeUp 0.9s ease;
 }
 
 .conf-content .eyebrow {
-  margin-bottom: 22px;
+  margin-bottom: 18px;
 }
 
 .conf-content h2 {
-  max-width: 1000px;
-  margin-bottom: 20px;
-
-  font-size: clamp(44px, 6vw, 68px);
-
-  line-height: 1.08;
+  max-width: 900px;
+  margin: 0 0 18px;
+  /* KEY FIX: clamp starts smaller so it never overflows narrow phones */
+  font-size: clamp(28px, 6vw, 68px);
+  line-height: 1.1;
+  word-break: break-word;
 }
 
 .conf-content p {
-  max-width: 700px;
-
-  font-size: 18px;
-
+  max-width: 680px;
+  margin: 0 auto;
+  /* KEY FIX: clamp for body text too */
+  font-size: clamp(14px, 2.2vw, 18px);
   line-height: 1.8;
 }
 
@@ -122,28 +144,31 @@
 
 .conf-grid {
   position: relative;
-
+  z-index: 2;
   margin-top: 3rem;
+  padding: 0 24px;
 
   display: grid;
-
   grid-template-columns: repeat(3, 1fr);
-
-  gap: 30px;
+  gap: 24px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* Second Row Center Alignment */
-
+/* Second row — cards 4 & 5 centered via auto margins */
 .card-4 {
   grid-column: 1;
-
-  justify-self: end;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
 }
 
 .card-5 {
   grid-column: 3;
-
-  justify-self: start;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
 }
 
 /* =====================================================
@@ -151,43 +176,76 @@
 ===================================================== */
 
 .conf-card {
-  min-height: 180px;
-
-  padding: 34px 28px;
+  min-height: 160px;
+  padding: 30px 24px;
 
   display: flex;
-
   align-items: flex-start;
-
-  gap: 22px;
-
-  transition: .35s ease;
+  gap: 20px;
 
   border-radius: 24px;
-
   position: relative;
-
   overflow: hidden;
+
+  /* KEY FIX: don't let animation remove itself after playing */
+  animation: fadeCard 0.8s ease backwards;
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
 }
 
-/* top accent */
+.card-1 { animation-delay: 0.05s; }
+.card-2 { animation-delay: 0.12s; }
+.card-3 { animation-delay: 0.20s; }
+.card-4 { animation-delay: 0.30s; }
+.card-5 { animation-delay: 0.40s; }
 
+/* top accent bar */
 .conf-card::after {
   content: "";
-
   position: absolute;
-
   top: 0;
   left: 0;
-
   width: 100%;
   height: 3px;
+  background: linear-gradient(90deg, var(--cyan), var(--violet));
+}
 
-  background: linear-gradient(
-      90deg,
-      var(--cyan),
-      var(--violet)
-  );
+/* animated glow on hover */
+.conf-card::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(130deg, transparent, rgba(92, 225, 230, 0.18), transparent);
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  z-index: -1;
+}
+
+/* =====================================================
+   CARD HOVER
+===================================================== */
+
+.conf-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(92, 225, 230, 0.35);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.35),
+    0 0 35px rgba(92, 225, 230, 0.12);
+}
+
+.conf-card:hover::before {
+  opacity: 1;
+}
+
+.conf-card:hover .icon-circle {
+  color: #fff;
+  border-color: rgba(92, 225, 230, 0.35);
+  background: linear-gradient(135deg, rgba(92, 225, 230, 0.15), rgba(139, 123, 255, 0.18));
+  transform: scale(1.08);
+}
+
+.conf-card:hover h3 {
+  color: var(--cyan);
 }
 
 /* =====================================================
@@ -195,545 +253,242 @@
 ===================================================== */
 
 .icon-circle {
-
-  width: 74px;
-  height: 74px;
-
-  min-width: 74px;
-
+  width: 68px;
+  height: 68px;
+  min-width: 68px;
   border-radius: 50%;
-
   display: flex;
-
   justify-content: center;
-
   align-items: center;
-
-  font-size: 30px;
-
+  font-size: 28px;
   color: var(--cyan);
-
-  background: rgba(255,255,255,.05);
-
-  border:1px solid rgba(255,255,255,.08);
-
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow:
-      inset 0 0 0 1px rgba(255,255,255,.04),
-      0 10px 35px rgba(0,0,0,.25);
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 10px 35px rgba(0, 0, 0, 0.25);
+  transition: all 0.35s ease;
+  flex-shrink: 0;
 }
 
 /* =====================================================
-   TEXT
+   CARD TEXT
 ===================================================== */
 
-.card-content{
-
-    flex:1;
-
+.card-content {
+  flex: 1;
+  min-width: 0; /* KEY FIX: prevents flex children overflowing */
 }
 
-.card-content h3{
-
-    color:var(--text-primary);
-
-    font-size:20px;
-
-    margin-bottom:12px;
-
-    line-height:1.3;
-
+.card-content h3 {
+  color: var(--text-primary);
+  font-size: clamp(16px, 1.6vw, 20px);
+  margin-bottom: 10px;
+  line-height: 1.35;
+  transition: color 0.3s ease;
+  word-break: break-word;
 }
 
-.card-content p{
-
-    color:var(--text-muted);
-
-    font-size:15px;
-
-    line-height:1.75;
-
+.card-content p {
+  color: var(--text-muted);
+  font-size: clamp(13px, 1.2vw, 15px);
+  line-height: 1.75;
+  word-break: break-word;
 }
 
 /* =====================================================
-   CONTACT
+   CONTACT STRIP
 ===================================================== */
 
-.conf-contact{
-
-    margin-top:60px;
-
-    text-align:center;
-
+.conf-contact {
+  position: relative;
+  z-index: 2;
+  margin-top: 56px;
+  text-align: center;
+  padding: 0 24px;
 }
 
-.conf-contact p{
-
-    font-size:16px;
-
+.conf-contact p {
+  font-size: clamp(14px, 1.4vw, 16px);
+  line-height: 1.7;
 }
 
-.conf-contact a{
-
-    display:inline-flex;
-
-    align-items:center;
-
-    gap:8px;
-
-    margin-left:12px;
-
-    color:var(--cyan);
-
-    font-weight:700;
-
-    transition:.3s;
-
+.conf-contact a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 10px;
+  color: var(--cyan);
+  font-weight: 700;
+  transition: color 0.3s ease;
 }
 
-.conf-contact svg{
-
-    font-size:20px;
-
+.conf-contact a::after {
+  content: "";
+  width: 0;
+  height: 2px;
+  background: var(--cyan);
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  transition: width 0.35s ease;
 }
+
+.conf-contact a:hover {
+  color: #fff;
+}
+
+.conf-contact a:hover::after {
+  width: 100%;
+}
+
 /* =====================================================
-   HOVER EFFECTS
+   ANIMATIONS
 ===================================================== */
 
-.conf-card:hover {
-
-  transform: translateY(-10px);
-
-  border-color: rgba(92,225,230,.35);
-
-  box-shadow:
-    0 20px 60px rgba(0,0,0,.35),
-    0 0 35px rgba(92,225,230,.12);
-
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-.conf-card:hover .icon-circle{
-
-    color:#fff;
-
-    border-color:rgba(92,225,230,.35);
-
-    background:linear-gradient(
-    135deg,
-    rgba(92,225,230,.15),
-    rgba(139,123,255,.18)
-    );
-
-    transform:scale(1.08);
-
+@keyframes fadeCard {
+  from { opacity: 0; transform: translateY(60px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-.icon-circle{
+/* =====================================================
+   RESPONSIVE — TABLET  (≤ 1100px)
+===================================================== */
 
-    transition:.35s ease;
+@media (max-width: 1100px) {
+  .conf-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 
+  /* reset the manual column placements */
+  .card-4,
+  .card-5 {
+    grid-column: auto;
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+  }
 }
 
-.conf-card:hover h3{
+/* =====================================================
+   RESPONSIVE — MOBILE  (≤ 768px)
+===================================================== */
 
-    color:var(--cyan);
+@media (max-width: 768px) {
+  .confidentiality {
+    padding-bottom: 72px;
+  }
 
+  /* KEY FIX: single column, no horizontal scroll */
+  .conf-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 2rem;
+    padding: 0 16px;
+  }
+
+  .card-4,
+  .card-5 {
+    grid-column: auto;
+    margin: 0;
+    width: 100%;
+    justify-self: stretch;
+  }
+
+  .conf-content {
+    padding: 56px 16px 64px;
+  }
+
+  .conf-card {
+    padding: 22px 18px;
+    min-height: auto;
+    gap: 16px;
+  }
+
+  .icon-circle {
+    width: 56px;
+    height: 56px;
+    min-width: 56px;
+    font-size: 22px;
+  }
+
+  .conf-contact {
+    margin-top: 40px;
+  }
+
+  /* stack "email us" link below text on narrow screens */
+  .conf-contact p {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .conf-contact a {
+    margin-left: 0;
+  }
 }
 
-.card-content h3{
+/* =====================================================
+   RESPONSIVE — SMALL PHONES  (≤ 480px)
+===================================================== */
 
-    transition:.3s;
+@media (max-width: 480px) {
+  .conf-grid {
+    padding: 0 12px;
+    gap: 14px;
+  }
 
+  .conf-content {
+    padding: 44px 16px 52px;
+  }
+
+  .conf-card {
+    /* KEY FIX: stack icon above text on very small screens */
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 20px 16px;
+    border-radius: 18px;
+  }
+
+  .icon-circle {
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    font-size: 20px;
+  }
+
+  /* disable hover lift on touch — avoids stuck states */
+  .conf-card:hover {
+    transform: none;
+  }
+
+  .conf-contact {
+    padding: 0 16px;
+  }
 }
 
-/* ==========================================
-   Animated Glow
-========================================== */
-
-.conf-card::before{
-
-    content:"";
-
-    position:absolute;
-
-    inset:-2px;
-
-    border-radius:inherit;
-
-    background:
-    linear-gradient(
-    130deg,
-    transparent,
-    rgba(92,225,230,.18),
-    transparent
-    );
-
-    opacity:0;
-
-    transition:.45s;
-
-    z-index:-1;
-
-}
-
-.conf-card:hover::before{
-
-    opacity:1;
-
-}
-
-/* ==========================================
-   Hero Fade
-========================================== */
-
-.conf-content{
-
-    animation:fadeUp .9s ease;
-
-}
-
-.conf-card{
-
-    animation:fadeCard .8s ease backwards;
-
-}
-
-.card-1{
-
-animation-delay:.05s;
-
-}
-
-.card-2{
-
-animation-delay:.12s;
-
-}
-
-.card-3{
-
-animation-delay:.20s;
-
-}
-
-.card-4{
-
-animation-delay:.30s;
-
-}
-
-.card-5{
-
-animation-delay:.40s;
-
-}
-
-/* ==========================================
-   Contact
-========================================== */
-
-.conf-contact a:hover{
-
-    color:#fff;
-
-}
-
-.conf-contact a::after{
-
-    content:"";
-
-    width:0;
-
-    height:2px;
-
-    background:var(--cyan);
-
-    position:absolute;
-
-    bottom:-5px;
-
-    left:0;
-
-    transition:.35s;
-
-}
-
-.conf-contact a{
-
-    position:relative;
-
-}
-
-.conf-contact a:hover::after{
-
-    width:100%;
-
-}
-
-/* ==========================================
-   Floating Lights
-========================================== */
-
-.confidentiality::before{
-
-content:"";
-
-position:absolute;
-
-width:420px;
-
-height:420px;
-
-border-radius:50%;
-
-left:-180px;
-
-top:420px;
-
-background:radial-gradient(circle,
-rgba(92,225,230,.10),
-transparent 70%);
-
-filter:blur(50px);
-
-pointer-events:none;
-
-}
-
-.confidentiality::after{
-
-content:"";
-
-position:absolute;
-
-width:420px;
-
-height:420px;
-
-border-radius:50%;
-
-right:-180px;
-
-bottom:120px;
-
-background:radial-gradient(circle,
-rgba(139,123,255,.10),
-transparent 70%);
-
-filter:blur(60px);
-
-pointer-events:none;
-
-}
-
-/* ==========================================
-   Animations
-========================================== */
-
-@keyframes fadeUp{
-
-from{
-
-opacity:0;
-
-transform:translateY(40px);
-
-}
-
-to{
-
-opacity:1;
-
-transform:translateY(0);
-
-}
-
-}
-
-@keyframes fadeCard{
-
-from{
-
-opacity:0;
-
-transform:translateY(60px);
-
-}
-
-to{
-
-opacity:1;
-
-transform:translateY(0);
-
-}
-
-}
-
-/* ==========================================
-   Tablet
-========================================== */
-
-@media (max-width:1100px){
-
-.conf-grid{
-
-grid-template-columns:repeat(2,1fr);
-
-}
-
-.card-4,
-.card-5{
-
-grid-column:auto;
-
-justify-self:stretch;
-
-}
-
-.conf-banner{
-
-height:480px;
-
-}
-
-.conf-content{
-
-height:480px;
-
-}
-
-}
-
-/* ==========================================
-   Mobile
-========================================== */
-
-@media (max-width:768px){
-
-.conf-banner{
-
-height:420px;
-
-}
-
-.conf-content{
-
-height:420px;
-
-padding:0 20px;
-
-}
-
-.conf-content h2{
-
-font-size:40px;
-
-}
-
-.conf-content p{
-
-font-size:16px;
-
-}
-
-.conf-grid{
-
-grid-template-columns:1fr;
-
-gap:22px;
-
-margin-top:2.5rem;
-
-}
-
-.conf-card{
-
-padding:24px;
-
-min-height:auto;
-
-}
-
-.icon-circle{
-
-width:62px;
-
-height:62px;
-
-min-width:62px;
-
-font-size:24px;
-
-}
-
-.card-content h3{
-
-font-size:18px;
-
-}
-
-.conf-contact{
-
-margin-top:40px;
-
-padding:0 20px;
-
-}
-
-.conf-contact a{
-
-margin-top:10px;
-
-margin-left:0;
-
-display:inline-flex;
-
-}
-
-}
-
-/* ==========================================
-   Small Phones
-========================================== */
-
-@media (max-width:480px){
-
-.conf-banner{
-
-height:380px;
-
-}
-
-.conf-content{
-
-height:380px;
-
-}
-
-.conf-content h2{
-
-font-size:34px;
-
-}
-
-.conf-content p{
-
-font-size:15px;
-
-}
-
-.conf-card{
-
-flex-direction:column;
-
-align-items:flex-start;
-
-}
-
-.icon-circle{
-
-margin-bottom:10px;
-
-}
-
+/* =====================================================
+   EXTRA SMALL  (≤ 360px)
+===================================================== */
+
+@media (max-width: 360px) {
+  .conf-content {
+    padding: 36px 12px 44px;
+  }
+
+  .conf-grid {
+    padding: 0 8px;
+  }
+
+  .conf-card {
+    padding: 18px 14px;
+  }
 }

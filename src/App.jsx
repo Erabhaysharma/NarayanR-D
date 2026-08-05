@@ -7,6 +7,7 @@ import Home from "./pages/Home.jsx";
 import Products from "./pages/Products.jsx";
 import Research from "./pages/Research.jsx";
 import ServicesPage from "./pages/ServicesPage.jsx";
+import About from "./pages/About.jsx";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -28,6 +29,7 @@ export default function App() {
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/products" element={<Products />} />
         <Route path="/research" element={<Research />} />
+        <Route path="/about" element={<About />} />
       </Routes>
       <Footer />
       <WhatsAppFloat />
